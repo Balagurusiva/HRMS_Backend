@@ -12,13 +12,14 @@ const app = express()
 app.use(cors())
 app.use(helmet())
 app.use(express.json())
-app.use((err, req, res, next) => {
-    console.log("error", err.stack);
-    res.status(err.status || 500).json({ message: err.message || "Server Error" })
-})
 
 
 app.use('/api/auth', authRoutes)
 app.use('/api/employee', empolyeeRoutes)
+
+app.use((err, req, res, next) => {
+    console.log("error", err.stack);
+    res.status(err.status || 500).json({ message: err.message || "Server Error" })
+})
 
 export default app;
